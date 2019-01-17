@@ -3,11 +3,12 @@ from pyproject.database import engine
 from pyproject.models import Contracts
 
 
-def get_contract_id(contract_id):
+def get_contract_id(contract_id: int) -> dict:
     """
-    Retrieving contract's id
-    :param contract_id: INT
-    :return:
+    Retrieve contract's id.
+
+    :param contract_id: int
+    :return: dict
     """
     with engine.connect() as conn:
         query = select([Contracts]).where(Contracts.c.id == contract_id)
@@ -16,11 +17,12 @@ def get_contract_id(contract_id):
         return dict(result)
 
 
-def add_new_contract(json_data):
+def add_new_contract(json_data: dict) -> dict:
     """
-    Create a new contract
-    :param json_data:
-    :return:
+    Create a new contract.
+
+    :param json_data: dict
+    :return: dict
     """
     with engine.connect() as conn:
         query = Contracts.insert()
@@ -29,12 +31,13 @@ def add_new_contract(json_data):
         return {'Message': 'Created successfully'}
 
 
-def update_contract(json_data, contract_id):
+def update_contract(json_data: dict, contract_id: int) -> dict:
     """
-    Change contract
-    :param json_data:
-    :param contract_id:
-    :return:
+    Update an existing contract.
+
+    :param json_data: dict
+    :param contract_id: int
+    :return: dict
     """
     with engine.connect() as conn:
         query = update(Contracts).where(Contracts.c.id == contract_id).values(**json_data)
@@ -44,11 +47,12 @@ def update_contract(json_data, contract_id):
         return dict(contract)
 
 
-def delete_contract(contract_id):
+def delete_contract(contract_id: int) -> dict:
     """
-    Delete contract
-    :param contract_id:
-    :return:
+    Delete contract.
+
+    :param contract_id: int
+    :return: dict
     """
     with engine.connect() as conn:
         query = Contracts.delete().where(Contracts.c.id == contract_id)
@@ -61,7 +65,7 @@ def delete_contract(contract_id):
 
 def get_contracts():
     """
-    Retrieving all contracts
+    Retrieve all contracts.
 
     :return:
     """

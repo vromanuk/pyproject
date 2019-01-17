@@ -3,11 +3,12 @@ from pyproject.database import engine
 from pyproject.models import Payments
 
 
-def get_payment_id(payment_id):
+def get_payment_id(payment_id: int) -> dict:
     """
-    Retrieving payment's id
-    :param payment_id: INT
-    :return:
+    Retrieve payment's id.
+
+    :param payment_id: int
+    :return: dict
     """
     with engine.connect() as conn:
         query = select([Payments]).where(Payments.c.id == payment_id)
@@ -16,11 +17,12 @@ def get_payment_id(payment_id):
         return dict(result)
 
 
-def add_new_payment(json_data):
+def add_new_payment(json_data: dict) -> dict:
     """
-    Create a new payment
+    Create a new payment.
+
     :param json_data:
-    :return:
+    :return: dict
     """
     with engine.connect() as conn:
         query = Payments.insert()
@@ -29,12 +31,13 @@ def add_new_payment(json_data):
         return {'Message': 'Created successfully'}
 
 
-def update_payment(json_data, payment_id):
+def update_payment(json_data: dict, payment_id: int) -> dict:
     """
-    Change payment
-    :param json_data:
-    :param payment_id:
-    :return:
+    Update an existing payment.
+
+    :param json_data: dict
+    :param payment_id: int
+    :return: dict
     """
     with engine.connect() as conn:
         query = update(Payments).where(Payments.c.id == payment_id).values(**json_data)
@@ -44,11 +47,12 @@ def update_payment(json_data, payment_id):
         return dict(payment)
 
 
-def delete_payment(payment_id):
+def delete_payment(payment_id: int) -> dict:
     """
-    Delete payment
-    :param payment_id:
-    :return:
+    Delete payment.
+
+    :param payment_id: int
+    :return: dict
     """
     with engine.connect() as conn:
         query = Payments.delete().where(Payments.c.id == payment_id)
@@ -61,7 +65,7 @@ def delete_payment(payment_id):
 
 def get_payments():
     """
-    Retrieving all payments
+    Retrieve all payments.
 
     :return:
     """
