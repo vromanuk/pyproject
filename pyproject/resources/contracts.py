@@ -36,4 +36,5 @@ class Contracts(Resource):
         if err:
             raise ValidationError
         contract = add_new_contract(json_data)
+
         return make_response(jsonify(contract), 201)

@@ -15,7 +15,6 @@ class Payment(Resource):
         json_data, err = PaymentsSchema.load(request.json)
         if err:
             raise ValidationError
-
         payment = update_payment(json_data, payment_id)
 
         return make_response(jsonify(payment), 201)
@@ -36,7 +35,6 @@ class Payments(Resource):
         json_data, err = PaymentsSchema.load(request.json)
         if err:
             raise ValidationError
-
         payment = add_new_payment(json_data)
 
         return make_response(jsonify(payment), 201)
