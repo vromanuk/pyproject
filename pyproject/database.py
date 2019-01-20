@@ -15,17 +15,17 @@ def drop_all():
 def populate():
     with engine.connect() as conn:
         conn.execute(Contracts.insert(), [
-            {'title': 'HB1', 'price': '100.00',
+            {'title': 'HB1', 'price': 100.00,
              'description': 'Aspirin is used in the treatment of angina; heart attack'},
-            {'title': 'E85', 'price': '78.25',
+            {'title': 'E85', 'price': 78.25,
              'description': 'Penicillin V is an antibiotic in the penicillin group of drugs'}
         ])
     with engine.connect() as conn:
         conn.execute(Payments.insert(), [
-            {'contracts_id': '1', 'amount': '15.00'},
-            {'contracts_id': '1', 'amount': '23.45'},
-            {'contracts_id': '2', 'amount': '22.00'},
-            {'contracts_id': '2', 'amount': '35.00'}
+            {'contracts_id': 1, 'amount': 15.00},
+            {'contracts_id': 1, 'amount': 23.45},
+            {'contracts_id': 2, 'amount': 22.00},
+            {'contracts_id': 2, 'amount': 35.00}
         ])
 
 
