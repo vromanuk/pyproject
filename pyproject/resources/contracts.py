@@ -1,6 +1,8 @@
 from ..services.contracts import get_contract_id, get_contracts, update_contract, delete_contract, add_new_contract
 from flask_restful import Resource
-from flask import jsonify, make_response
+from flask import jsonify, make_response, request
+from pyproject.schemas import ContractsSchema
+from marshmallow import ValidationError
 
 
 class Contract(Resource):
@@ -9,8 +11,11 @@ class Contract(Resource):
 
         return make_response(jsonify(contract), 200)
 
-    def put(self, data, contract_id):
-        contract = update_contract(data, contract_id)
+    def put(self, contract_id):
+        json_data, err = ContractsSchema.load(request.json)
+        if err:
+            raise ValidationError
+        contract = update_contract(json_data, contract_id)
 
         return make_response(jsonify(contract), 201)
 
@@ -26,6 +31,9 @@ class Contracts(Resource):
 
         return make_response(jsonify(contracts), 200)
 
-    def post(self, json_data):
+    def post(self):
+        json_data, err = ContractsSchema.load(request.json)
+        if err:
+            raise ValidationError
         contract = add_new_contract(json_data)
         return make_response(jsonify(contract), 201)

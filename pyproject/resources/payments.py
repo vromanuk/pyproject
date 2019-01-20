@@ -1,6 +1,8 @@
 from ..services.payments import get_payment_id, get_payments, update_payment, delete_payment, add_new_payment
 from flask_restful import Resource
-from flask import jsonify, make_response
+from flask import jsonify, make_response, request
+from pyproject.schemas import PaymentsSchema
+from marshmallow import ValidationError
 
 
 class Payment(Resource):
@@ -9,8 +11,12 @@ class Payment(Resource):
 
         return make_response(jsonify(payment), 200)
 
-    def put(self, data, payment_id):
-        payment = update_payment(data, payment_id)
+    def put(self, payment_id):
+        json_data, err = PaymentsSchema.load(request.json)
+        if err:
+            raise ValidationError
+
+        payment = update_payment(json_data, payment_id)
 
         return make_response(jsonify(payment), 201)
 
@@ -26,6 +32,11 @@ class Payments(Resource):
 
         return make_response(jsonify(payments), 200)
 
-    def post(self, json_data):
+    def post(self):
+        json_data, err = PaymentsSchema.load(request.json)
+        if err:
+            raise ValidationError
+
         payment = add_new_payment(json_data)
+
         return make_response(jsonify(payment), 201)
