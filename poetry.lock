@@ -55,19 +55,6 @@ itsdangerous = ">=0.24"
 
 [[package]]
 category = "main"
-description = "Flask + marshmallow for beautiful APIs"
-name = "flask-marshmallow"
-optional = false
-python-versions = "*"
-version = "0.9.0"
-
-[package.dependencies]
-Flask = "*"
-marshmallow = ">=2.0.0"
-six = ">=1.9.0"
-
-[[package]]
-category = "main"
 description = "Simple framework for creating REST APIs"
 name = "flask-restful"
 optional = false
@@ -201,7 +188,7 @@ python-versions = "*"
 version = "0.14.1"
 
 [metadata]
-content-hash = "9fd091d5071bf17c41d4f947641e8fb841e6df88b69c402a6b993bb96eccada5"
+content-hash = "3c71e89071a3392a1115a3decd55ccadd2ed78f995809bb829036350950dfdf1"
 python-versions = "^3.6"
 
 [metadata.hashes]
@@ -211,7 +198,6 @@ attrs = ["10cbf6e27dbce8c30807caf056c8eb50917e0eaafe86347671b57254006c3e69", "ca
 click = ["2335065e6395b9e67ca716de5f7526736bfa6ceead690adf616d925bdc622b13", "5b94b49521f6456670fdb30cd82a4eca9412788a93fa6dd6df72c94d5a8ff2d7"]
 colorama = ["05eed71e2e327246ad6b38c540c4a3117230b19679b875190486ddd2d721422d", "f8ac84de7840f5b9c4e3347b3c1eaa50f7e49c2b07596221daec5edaabbd7c48"]
 flask = ["2271c0070dbcb5275fad4a82e29f23ab92682dc45f9dfbc22c02ba9b9322ce48", "a080b744b7e345ccfcbc77954861cb05b3c63786e93f2b3875e0913d44b43f05"]
-flask-marshmallow = ["75c9d80f22af982b1e8ccec109d3b75c14bb5570602ae3705a4ff775badd2816", "db7aff4130eb99fd05ab78fd2e2c58843ba0f208899aeb1c14aff9cd98ae8c80"]
 flask-restful = ["ecd620c5cc29f663627f99e04f17d1f16d095c83dc1d618426e2ad68b03092f8", "f8240ec12349afe8df1db168ea7c336c4e5b0271a36982bff7394f93275f2ca9"]
 itsdangerous = ["321b033d07f2a4136d3ec762eac9f16a10ccd60f53c0c91af90217ace7ba1f19", "b12271b2047cb23eeb98c8b5622e2e5c5e9abd9784a153e9d8ef9cb4dd09d749"]
 jinja2 = ["74c935a1b8bb9a3947c50a54766a969d4846290e1e788ea44c1392163723c3bd", "f84be1bb0040caca4cea721fcbbbbd61f9be9464ca236387158b0feea01914a4"]

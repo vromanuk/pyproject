@@ -1,4 +1,6 @@
+from flask import request
 from flask_restful import Resource
+from pyproject import app
 
 
 class Smoke(Resource):
@@ -6,5 +8,7 @@ class Smoke(Resource):
         """
         Simple test that route exists.
         """
-        return {'message': 'OK'}, 200
+        app.logger.info(f'{request.scheme} {request.remote_addr} {request.method} {request.path}'
+                        f'Requested Smoke Page')
 
+        return {'message': 'OK'}, 200
