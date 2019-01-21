@@ -1,6 +1,5 @@
 import os
-from logging import Formatter
-from logging.handlers import RotatingFileHandler
+from logging import Formatter, FileHandler, DEBUG
 
 
 def make_logger(app):
@@ -13,7 +12,9 @@ def make_logger(app):
     if not os.path.exists('logs/'):
         os.makedirs('logs/')
 
-    file_handler = RotatingFileHandler('logs/Development.log', maxBytes=1000000, backupCount=1)
-    file_handler.setLevel('DEBUG')
-    file_handler.setFormatter(Formatter('%(asctime)s - %(levelname)s: %(message)s'))
+    app.logger.setLevel(DEBUG)
+    formatter = Formatter('%(asctime)s - %(levelname)s: %(message)s')
+
+    file_handler = FileHandler('logs/Development.log')
+    file_handler.setFormatter(formatter)
     app.logger.addHandler(file_handler)

@@ -8,7 +8,6 @@ class Smoke(Resource):
         """
         Simple test that route exists.
         """
-        app.logger.info(f'{request.scheme} {request.remote_addr} {request.method} {request.path}'
-                        f'Requested Smoke Page')
+        app.logger.info(f'{request.scheme} {request.remote_addr} {request.method} {request.path}')
 
         return {'message': 'OK'}, 200
