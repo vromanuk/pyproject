@@ -12,7 +12,7 @@ class Payment(Resource):
         return make_response(jsonify(payment), 200)
 
     def put(self, payment_id):
-        json_data, err = PaymentsSchema.load(request.json)
+        json_data, err = PaymentsSchema(strict=True).load(request.get_json())
         if err:
             raise ValidationError
         payment = update_payment(json_data, payment_id)
@@ -32,7 +32,7 @@ class Payments(Resource):
         return make_response(jsonify(payments), 200)
 
     def post(self):
-        json_data, err = PaymentsSchema.load(request.json)
+        json_data, err = PaymentsSchema(strict=True).load(request.get_json())
         if err:
             raise ValidationError
         payment = add_new_payment(json_data)

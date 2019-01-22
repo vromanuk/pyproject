@@ -12,7 +12,7 @@ class Contract(Resource):
         return make_response(jsonify(contract), 200)
 
     def put(self, contract_id):
-        json_data, err = ContractsSchema.load(request.json)
+        json_data, err = ContractsSchema(strict=True).load(request.get_json())
         if err:
             raise ValidationError
         contract = update_contract(json_data, contract_id)
@@ -32,7 +32,8 @@ class Contracts(Resource):
         return make_response(jsonify(contracts), 200)
 
     def post(self):
-        json_data, err = ContractsSchema.load(request.json)
+        json_data, err = ContractsSchema(strict=True).load(request.get_json())
+        print(err)
         if err:
             raise ValidationError
         contract = add_new_contract(json_data)
