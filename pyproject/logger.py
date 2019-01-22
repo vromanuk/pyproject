@@ -2,7 +2,7 @@ import os
 from logging import Formatter, FileHandler, DEBUG
 
 
-def make_logger(app):
+def create_logger(app):
     """
     Creates logger handler for an application.
 
@@ -18,3 +18,5 @@ def make_logger(app):
     file_handler = FileHandler('logs/Development.log')
     file_handler.setFormatter(formatter)
     app.logger.addHandler(file_handler)
+
+    return app

@@ -4,10 +4,14 @@ from pyproject import app
 
 
 class Smoke(Resource):
+
     def get(self):
         """
         Simple test that route exists.
         """
-        app.logger.info(f'{request.scheme} {request.remote_addr} {request.method} {request.path}')
-
         return {'message': 'OK'}, 200
+
+
+@app.before_request
+def wrapper():
+    app.logger.info(f'{request.scheme} {request.remote_addr} {request.method} {request.path}')
