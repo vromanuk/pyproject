@@ -34,7 +34,6 @@ class Contracts(Resource):
 
     def post(self):
         json_data, err = ContractsSchema(strict=True).load(request.get_json())
-        print(err)
         if err:
             raise ValidationError
         contract = add_new_contract(json_data)
