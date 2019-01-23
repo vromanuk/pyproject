@@ -25,6 +25,7 @@ def parse_args(*args):
 
     db_parse = subparser.add_parser(db_init.__name__, add_help=False)
     db_parse.add_argument(action="store_true", dest="db_init")
+
     return parser.parse_args(*args)
 
 

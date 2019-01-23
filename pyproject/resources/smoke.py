@@ -1,6 +1,6 @@
+from pyproject import app
 from flask import request
 from flask_restful import Resource
-from pyproject import app
 
 
 class Smoke(Resource):

@@ -1,8 +1,9 @@
-from ..services.contracts import get_contract_id, get_contracts, update_contract, delete_contract, add_new_contract
 from flask_restful import Resource
-from flask import jsonify, make_response, request
-from pyproject.schemas import ContractsSchema
 from marshmallow import ValidationError
+from pyproject.schemas import ContractsSchema
+from flask import jsonify, make_response, request
+from pyproject.services.contracts import get_contract_id, get_contracts, update_contract, delete_contract, \
+    add_new_contract
 
 
 class Contract(Resource):
