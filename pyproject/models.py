@@ -1,23 +1,20 @@
-from sqlalchemy import Table, MetaData, Column, ForeignKey, Integer, Float, String, Date
-from datetime import date, datetime
+from sqlalchemy import Table, MetaData, Column, ForeignKey, Integer, Float, String
 
 metadata = MetaData()
 
 Contracts = Table(
         'contracts',
         metadata,
-        Column('id', Integer, primary_key=True, autoincrement=True),
+        Column('id', Integer, primary_key=True),
         Column('title', String, nullable=False, unique=True),
         Column('price', Float, nullable=False),
-        Column('description', String, nullable=True),
-        Column('expiration_date', Date, default=date.today())
+        Column('description', String, nullable=True)
         )
 
 Payments = Table(
         'payments',
         metadata,
-        Column('id', Integer, primary_key=True, autoincrement=True),
+        Column('id', Integer, primary_key=True),
         Column('contracts_id', Integer, ForeignKey('contracts.id')),
-        Column('amount', Float, nullable=False),
-        Column('date_time', Date, default=datetime.now())
+        Column('amount', Float, nullable=False)
         )
