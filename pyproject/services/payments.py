@@ -57,10 +57,8 @@ def delete_payment(payment_id: int) -> dict:
     with engine.connect() as conn:
         query = Payments.delete().where(Payments.c.id == payment_id)
         conn.execute(query)
-        s = select([Payments]).where(Payments.c.id == payment_id).first()
-        conn.execute(s)
 
-        return dict(s)
+        return {'Message': f'Contract {payment_id} deleted successfully'}
 
 
 def get_payments():

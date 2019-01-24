@@ -57,10 +57,8 @@ def delete_contract(contract_id: int) -> dict:
     with engine.connect() as conn:
         query = Contracts.delete().where(Contracts.c.id == contract_id)
         conn.execute(query)
-        s = select([Contracts]).where(Contracts.c.id == contract_id).first()
-        conn.execute(s)
 
-        return dict(s)
+        return {'Message': f'Contract {contract_id} deleted successfully'}
 
 
 def get_contracts():
