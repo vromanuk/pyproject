@@ -72,7 +72,7 @@ def delete_payment(payment_id: int) -> dict:
         query = Payments.delete().where(Payments.c.id == payment_id)
         conn.execute(query)
 
-        return {'Message': f'Contract {payment_id} deleted successfully'}
+        return {'Message': f'Payment {payment_id} deleted successfully'}
 
 
 def get_payments():
