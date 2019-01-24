@@ -30,6 +30,7 @@ def populate():
 
 
 if __name__ == '__main__':
+    drop_all()
     create_all()
     populate()
 
