@@ -15,6 +15,7 @@ Payments = Table(
     'payments',
     metadata,
     Column('id', Integer, primary_key=True),
-    Column('contracts_id', Integer, ForeignKey('contracts.id'), nullable=False),
+    Column('contracts_id', Integer, ForeignKey('contracts.id', onupdate='CASCADE', ondelete='CASCADE'),
+           nullable=False),
     Column('amount', Float, nullable=False)
 )
