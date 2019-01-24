@@ -3,6 +3,14 @@ from pyproject.database import engine
 from pyproject.models import Payments
 
 
+def is_payment_exist(id_):
+    with engine.connect() as conn:
+        query = select([Payments]).where(Payments.c.id == id_)
+        result = conn.execute(query).first()
+
+    return bool(result)
+
+
 def get_payment_id(payment_id: int) -> dict:
     """
     Retrieve payment's id.
@@ -10,6 +18,8 @@ def get_payment_id(payment_id: int) -> dict:
     :param payment_id: int
     :return: dict
     """
+    if not is_payment_exist(payment_id):
+        return {'Message': 'Such id does not exist'}
     with engine.connect() as conn:
         query = select([Payments]).where(Payments.c.id == payment_id)
         result = conn.execute(query).first()
@@ -39,6 +49,8 @@ def update_payment(json_data: dict, payment_id: int) -> dict:
     :param payment_id: int
     :return: dict
     """
+    if not is_payment_exist(payment_id):
+        return {'Message': 'Such id does not exist'}
     with engine.connect() as conn:
         query = update(Payments).where(Payments.c.id == payment_id).values(**json_data)
         conn.execute(query)
@@ -54,6 +66,8 @@ def delete_payment(payment_id: int) -> dict:
     :param payment_id: int
     :return: dict
     """
+    if not is_payment_exist(payment_id):
+        return {'Message': 'Such id does not exist'}
     with engine.connect() as conn:
         query = Payments.delete().where(Payments.c.id == payment_id)
         conn.execute(query)

@@ -3,6 +3,14 @@ from pyproject.database import engine
 from pyproject.models import Contracts
 
 
+def is_contract_exist(id_):
+    with engine.connect() as conn:
+        query = select([Contracts]).where(Contracts.c.id == id_)
+        result = conn.execute(query).first()
+
+    return bool(result)
+
+
 def get_contract_id(contract_id: int) -> dict:
     """
     Retrieve contract's id.
@@ -10,6 +18,8 @@ def get_contract_id(contract_id: int) -> dict:
     :param contract_id: int
     :return: dict
     """
+    if not is_contract_exist(contract_id):
+        return {'Message': 'Such id does not exist'}
     with engine.connect() as conn:
         query = select([Contracts]).where(Contracts.c.id == contract_id)
         result = conn.execute(query).first()
@@ -39,6 +49,8 @@ def update_contract(json_data: dict, contract_id: int) -> dict:
     :param contract_id: int
     :return: dict
     """
+    if not is_contract_exist(contract_id):
+        return {'Message': 'Such id does not exist'}
     with engine.connect() as conn:
         query = update(Contracts).where(Contracts.c.id == contract_id).values(**json_data)
         conn.execute(query)
@@ -54,6 +66,8 @@ def delete_contract(contract_id: int) -> dict:
     :param contract_id: int
     :return: dict
     """
+    if not is_contract_exist(contract_id):
+        return {'Message': 'Such id does not exist'}
     with engine.connect() as conn:
         query = Contracts.delete().where(Contracts.c.id == contract_id)
         conn.execute(query)
