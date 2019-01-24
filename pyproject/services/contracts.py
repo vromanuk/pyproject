@@ -3,7 +3,7 @@ from pyproject.database import engine
 from pyproject.models import Contracts
 
 
-def is_contract_exist(id_):
+def is_contract_exist(id_: int) -> bool:
     with engine.connect() as conn:
         query = select([Contracts]).where(Contracts.c.id == id_)
         result = conn.execute(query).first()

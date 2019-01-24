@@ -3,7 +3,7 @@ from pyproject.database import engine
 from pyproject.models import Payments
 
 
-def is_payment_exist(id_):
+def is_payment_exist(id_: int) -> bool:
     with engine.connect() as conn:
         query = select([Payments]).where(Payments.c.id == id_)
         result = conn.execute(query).first()
