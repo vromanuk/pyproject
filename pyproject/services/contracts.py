@@ -84,8 +84,6 @@ def get_contracts():
     with engine.connect() as conn:
         query = select([Contracts])
         result = conn.execute(query).fetchall()
-        json_data = list()
-        for i in result:
-            json_data.append(dict(i))
+        json_data = [dict(i) for i in result]
 
         return json_data

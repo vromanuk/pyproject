@@ -1,7 +1,7 @@
 from sqlalchemy import text
 from sqlalchemy.sql import select
 from pyproject.database import engine
-from pyproject.models import Contracts, Payments
+from pyproject.models import Contracts
 
 
 def is_contract_exist(id_: int) -> bool:
@@ -30,8 +30,6 @@ def get_payments_for_contract(contract_id: int):
         query = s.bindparams(x=contract_id)
         result = conn.execute(query).fetchall()
 
-        json_data = list()
-        for i in result:
-            json_data.append(dict(i))
+        json_data = [dict(i) for i in result]
 
         return json_data
