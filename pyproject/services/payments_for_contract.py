@@ -1,3 +1,4 @@
+from sqlalchemy import text
 from sqlalchemy.sql import select
 from pyproject.database import engine
 from pyproject.models import Contracts, Payments
@@ -21,8 +22,12 @@ def get_payments_for_contract(contract_id: int):
     if not is_contract_exist(contract_id):
         return {'Message': 'Such id does not exist'}
     with engine.connect() as conn:
-        query = select([Payments]).where(Contracts.c.id == contract_id).select_from(
-            Contracts.outerjoin(Payments))
+        s = text("""
+            SELECT contracts.title, contracts.price, contracts.description, payments.id, payments.amount
+            FROM contracts 
+            LEFT JOIN payments ON contracts.id = payments.contracts_id 
+            WHERE contracts.id = :x""")
+        query = s.bindparams(x=contract_id)
         result = conn.execute(query).fetchall()
 
         json_data = list()
