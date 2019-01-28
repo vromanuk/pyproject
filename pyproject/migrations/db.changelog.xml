@@ -1,0 +1,43 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="vromanuk (generated)" id="1548681015977-2">
+        <createTable tableName="contracts">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="contracts_pkey"/>
+            </column>
+            <column name="title" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="FLOAT8">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(100)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="vromanuk (generated)" id="1548681015977-3">
+        <createTable tableName="payments">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="payments_pkey"/>
+            </column>
+            <column name="contracts_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount" type="FLOAT8">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="vromanuk (generated)" id="1548681015977-5">
+        <addUniqueConstraint columnNames="title" constraintName="contracts_title_key" tableName="contracts"/>
+    </changeSet>
+    <changeSet author="vromanuk (generated)" id="1548681015977-7">
+        <addForeignKeyConstraint baseColumnNames="contracts_id" baseTableName="payments"
+                                 constraintName="payments_contracts_id_fkey" deferrable="false"
+                                 initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE"
+                                 referencedColumnNames="id" referencedTableName="contracts" validate="true"/>
+    </changeSet>
+</databaseChangeLog>
