@@ -5,6 +5,12 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
-    <include file="db.add_new_column_date.xml"/>
-
+    <changeSet id="1" author="vromanuk">
+        <addColumn tableName="payments">
+            <column name="date" type="date"/>
+        </addColumn>
+        <rollback>
+            <dropColumn tableName="payments" columnName="date"/>
+        </rollback>
+    </changeSet>
 </databaseChangeLog>
