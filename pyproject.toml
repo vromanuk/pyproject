@@ -11,9 +11,9 @@ sqlalchemy = "^1.2"
 psycopg2 = "^2.7"
 flask-restful = "^0.3.7"
 marshmallow = "^2.18"
+pytest = "^4.1"
 
 [tool.poetry.dev-dependencies]
-pytest = "^3.0"
 
 [build-system]
 requires = ["poetry>=0.12"]
