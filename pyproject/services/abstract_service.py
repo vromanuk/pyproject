@@ -1,3 +1,4 @@
+from sqlalchemy import func
 from sqlalchemy.sql import select, update
 from pyproject.database import engine
 from pyproject.models import Contracts, Payments
@@ -10,9 +11,9 @@ class AbstractService:
     def is_resource_exist(self, id_: int) -> bool:
         with engine.connect() as conn:
             query = select([self.model]).where(self.model.c.id == id_)
-            result = conn.execute(query).first()
+            result = conn.execute(query).rowcount
 
-        return bool(result)
+        return result
 
     def get_resource_id(self, resource_id: int) -> dict:
         """
