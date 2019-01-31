@@ -53,7 +53,7 @@ def test_delete_payment(client):
     cid = rs[-1].get('id')
     rv = delete_payment(client, cid)
 
-    assert bytes(f'Payment {cid} deleted successfully', encoding='utf-8') in rv.data
+    assert bytes(f'resource {cid} deleted successfully', encoding='utf-8') in rv.data
 
 
 def test_delete_contract(client):
@@ -63,4 +63,4 @@ def test_delete_contract(client):
     cid = rs[-1].get('id')
     rv = delete_contract(client, cid)
 
-    assert bytes(f'Contract {cid} deleted successfully', encoding='utf-8') in rv.data
+    assert bytes(f'resource {cid} deleted successfully', encoding='utf-8') in rv.data

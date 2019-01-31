@@ -1,15 +1,6 @@
 from sqlalchemy import text
-from sqlalchemy.sql import select
 from pyproject.database import engine
-from pyproject.models import Contracts
-
-
-def is_contract_exist(id_: int) -> bool:
-    with engine.connect() as conn:
-        query = select([Contracts]).where(Contracts.c.id == id_)
-        result = conn.execute(query).first()
-
-    return bool(result)
+from pyproject.services.abstract_service import contract_
 
 
 def get_payments_for_contract(contract_id: int):
@@ -19,7 +10,7 @@ def get_payments_for_contract(contract_id: int):
     :param contract_id: int
     :return:
     """
-    if not is_contract_exist(contract_id):
+    if not contract_.is_resource_exist(contract_id):
         return {'Message': 'Such id does not exist'}
     with engine.connect() as conn:
         s = text("""

@@ -1,13 +1,12 @@
 from flask_restful import Resource
 from pyproject.schemas import ContractsSchema
 from flask import request
-from pyproject.services.contracts import get_contract_id, get_contracts, update_contract, delete_contract, \
-    add_new_contract
+from pyproject.services.abstract_service import contract_
 
 
 class Contract(Resource):
     def get(self, contract_id):
-        contract = get_contract_id(contract_id)
+        contract = contract_.get_resource_id(contract_id)
 
         return contract, 200
 
@@ -15,19 +14,19 @@ class Contract(Resource):
         json_data, errors = ContractsSchema().load(request.json)
         if errors:
             return errors, 422
-        contract = update_contract(json_data, contract_id)
+        contract = contract_.update_resource(json_data, contract_id)
 
         return contract, 201
 
     def delete(self, contract_id):
-        contract = delete_contract(contract_id)
+        contract = contract_.delete_resource(contract_id)
 
         return contract, 200
 
 
 class Contracts(Resource):
     def get(self):
-        contracts = get_contracts()
+        contracts = contract_.get_resources()
 
         return contracts, 200
 
@@ -35,6 +34,6 @@ class Contracts(Resource):
         json_data, errors = ContractsSchema().load(request.json)
         if errors:
             return errors, 422
-        contract = add_new_contract(json_data)
+        contract = contract_.add_new_resource(json_data)
 
         return contract, 201

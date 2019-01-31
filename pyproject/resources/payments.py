@@ -1,12 +1,12 @@
 from flask_restful import Resource
 from pyproject.schemas import PaymentsSchema
 from flask import request
-from pyproject.services.payments import get_payment_id, get_payments, update_payment, delete_payment, add_new_payment
+from pyproject.services.abstract_service import payment_
 
 
 class Payment(Resource):
     def get(self, payment_id):
-        payment = get_payment_id(payment_id)
+        payment = payment_.get_resource_id(payment_id)
 
         return payment, 200
 
@@ -14,19 +14,19 @@ class Payment(Resource):
         json_data, errors = PaymentsSchema().load(request.json)
         if errors:
             return errors, 422
-        payment = update_payment(json_data, payment_id)
+        payment = payment_.update_resource(json_data, payment_id)
 
         return payment, 201
 
     def delete(self, payment_id):
-        payment = delete_payment(payment_id)
+        payment = payment_.delete_resource(payment_id)
 
         return payment, 200
 
 
 class Payments(Resource):
     def get(self):
-        payments = get_payments()
+        payments = payment_.get_resources()
 
         return payments, 200
 
@@ -34,6 +34,6 @@ class Payments(Resource):
         json_data, errors = PaymentsSchema().load(request.json)
         if errors:
             return errors, 422
-        payment = add_new_payment(json_data)
+        payment = payment_.add_new_resource(json_data)
 
         return payment, 201
