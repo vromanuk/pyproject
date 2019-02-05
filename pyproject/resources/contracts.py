@@ -1,7 +1,7 @@
 from flask_restful import Resource
 from pyproject.schemas import ContractsSchema
 from flask import request
-from pyproject.services.abstract_service import contract_
+from pyproject.services.base_service import contract_
 
 
 class ContractsResource(Resource):

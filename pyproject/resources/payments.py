@@ -1,7 +1,7 @@
 from flask_restful import Resource
 from pyproject.schemas import PaymentsSchema
 from flask import request
-from pyproject.services.abstract_service import payment_
+from pyproject.services.base_service import payment_
 
 
 class PaymentsResource(Resource):

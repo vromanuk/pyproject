@@ -1,10 +1,9 @@
-from sqlalchemy import func
 from sqlalchemy.sql import select, update
 from pyproject.database import engine
 from pyproject.models import Contracts, Payments
 
 
-class AbstractService:
+class BaseService:
     def __init__(self, model):
         self.model = model
 
@@ -89,5 +88,5 @@ class AbstractService:
             return json_data
 
 
-contract_ = AbstractService(Contracts)
-payment_ = AbstractService(Payments)
+contract_ = BaseService(Contracts)
+payment_ = BaseService(Payments)

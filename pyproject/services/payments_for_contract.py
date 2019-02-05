@@ -1,6 +1,6 @@
 from sqlalchemy import text
 from pyproject.database import engine
-from pyproject.services.abstract_service import contract_
+from pyproject.services.base_service import contract_
 
 
 def get_payments_for_contract(contract_id: int):
