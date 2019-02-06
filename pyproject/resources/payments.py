@@ -10,7 +10,7 @@ class PaymentsResource(Resource):
             payments = payment_.get_resources()
             return payments, 200
 
-        payment = payment_.get_resource_id(payment_id)
+        payment = payment_.get_resource(payment_id)
 
         return payment, 200
 

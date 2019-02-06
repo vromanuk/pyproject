@@ -14,7 +14,20 @@ class BaseService:
 
         return result
 
-    def get_resource_id(self, resource_id: int) -> dict:
+    def get_resources(self):
+        """
+        Retrieve all resources.
+
+        :return:
+        """
+        with engine.connect() as conn:
+            query = select([self.model])
+            result = conn.execute(query).fetchall()
+            json_data = [dict(i) for i in result]
+
+            return json_data
+
+    def get_resource(self, resource_id: int) -> dict:
         """
         Retrieve resource's id.
 
@@ -55,7 +68,7 @@ class BaseService:
         with engine.connect() as conn:
             query = update(self.model).where(self.model.c.id == resource_id).values(**json_data)
             conn.execute(query)
-            resource = self.get_resource_id(resource_id)
+            resource = self.get_resource(resource_id)
 
             return dict(resource)
 
@@ -73,19 +86,6 @@ class BaseService:
             conn.execute(query)
 
             return {'Message': f'resource {resource_id} deleted successfully'}
-
-    def get_resources(self):
-        """
-        Retrieve all resources.
-
-        :return:
-        """
-        with engine.connect() as conn:
-            query = select([self.model])
-            result = conn.execute(query).fetchall()
-            json_data = [dict(i) for i in result]
-
-            return json_data
 
 
 contract_ = BaseService(Contracts)

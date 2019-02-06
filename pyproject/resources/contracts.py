@@ -10,7 +10,7 @@ class ContractsResource(Resource):
             contracts = contract_.get_resources()
             return contracts, 200
 
-        contract = contract_.get_resource_id(contract_id)
+        contract = contract_.get_resource(contract_id)
 
         return contract, 200
 
